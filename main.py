@@ -1,4 +1,4 @@
 import myname
 
 name = myname.get_name()
-print("Привет {}".format(name))
+print("Привет {}. Как дела?".format(name))
