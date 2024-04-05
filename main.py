@@ -1,1 +1,4 @@
-print ("Hello, Git!git status")
+import myname
+
+name = myname.get_name()
+print("Привет {}".format(name))
