@@ -25,8 +25,11 @@ authors = [("Архипов", "Артем", "В своей статье расс
            ("Мубаракшин", "Булат", "Написал статью о своей девушке."),
            ("Трифонов", "Илья", "Также писал о девушке")]
 cursor.executemany("INSERT INTO pages (surname, name, article) VALUES (?, ?, ?)", authors)
+def show():
+    cursor.execute("SELECT * FROM workers")
+    print(cursor.fetchall())
 def limittask1():
-    cursor.execute("SELECT * FROM pages LIMIT 6")
+    cursor.execute("SELECT * FROM workers LIMIT 6")
     print(cursor.fetchall())
 def limittask2():
     cursor.execute("SELECT * FROM workers LIMIT 3 OFFSET 1")
@@ -59,5 +62,59 @@ def liketask3():
 def liketask4():
     cursor.execute("SELECT * FROM workers WHERE name LIKE 'Л%'")
     print(cursor.fetchall())
-liketask4()
+def selecttask1():
+    cursor.execute("SELECT name FROM workers WHERE id = 7")
+    print(cursor.fetchall())
+def selecttask5():
+    cursor.execute("SELECT * FROM workers WHERE salary <= 1000")
+    print(cursor.fetchall())
+def orandtask1():
+    cursor.execute("SELECT * FROM workers WHERE (age > 17 AND age <= 19)")
+    print(cursor.fetchall())
+def orandtask3():
+    cursor.execute("SELECT * FROM workers WHERE (name = 'Анюша') OR (name = 'Ладюша')")
+    print(cursor.fetchall())
+def orandtask6():
+    cursor.execute("SELECT * FROM workers WHERE (age >= 17 AND age < 19) OR (salary = 1000)")
+    print(cursor.fetchall())
+def orandtask8():
+    cursor.execute("SELECT * FROM workers WHERE age = 19 OR salary != 1000")
+    print(cursor.fetchall())
+def inserttask1():
+    cursor.execute("INSERT INTO workers (name, age, salary) VALUES ('Никита', 26, 300)")
+    print(cursor.fetchall())
+p = [("Ярослав", 1200, 30), ("Петр", 1000, 31)]
+def inserttask3():
+    cursor.executemany("INSERT INTO workers (name, salary, age) VALUES (?, ?, ?)", p)
+def deletetask1():
+    cursor.execute("DELETE FROM workers WHERE id = ?", ("7",))
+def deletetask3():
+    cursor.execute("DELETE FROM workers WHERE age = ?", ("18",))
+
+def updatetask1():
+    cursor.execute("UPDATE workers SET age = 19 WHERE name = 'Ладюша'")
+
+def updatetask3():
+    cursor.execute("UPDATE workers SET salary = 700 WHERE salary = 500")
+def updatetask5():
+    cursor.execute("UPDATE workers SET name = 'Лада' WHERE name = 'Ладюша'")
+def intask5():
+    cursor.execute("UPDATE workers SET name = 'Лада' WHERE name = 'Ладюша'")
+def astask1():
+    cursor.execute("SELECT id AS userid, name AS username, salary AS usersalary FROM workers")
+    print(cursor.fetchall())
+def distincttask1():
+    cursor.execute("SELECT DISTINCT salary FROM workers")
+    print(cursor.fetchall())
+def avgtask1():
+    cursor.execute("SELECT AVG(salary) FROM workers")
+    print(cursor.fetchone())
+def avgtask2():
+    cursor.execute("SELECT AVG(age) FROM workers")
+    print(cursor.fetchone())
+def concattask1():
+    cursor.execute("SELECT salary || '-' || age AS res FROM workers")
+    print(cursor.fetchall())
+concattask1()
+#show()
 con.close()
