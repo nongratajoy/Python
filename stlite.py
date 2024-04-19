@@ -115,6 +115,20 @@ def avgtask2():
 def concattask1():
     cursor.execute("SELECT salary || '-' || age AS res FROM workers")
     print(cursor.fetchall())
-concattask1()
+def groupbytask1():
+    cursor.execute("SELECT age, MIN(salary) AS min_salary FROM workers GROUP BY age")
+    results = cursor.fetchall()
+    for row in results:
+        print("Age:", row[0], "- Min Salary:", row[1])
+def groupconcattask1():
+    cursor.execute("""
+    SELECT age, GROUP_CONCAT(id, '-') AS res
+    FROM workers
+    GROUP BY age
+    """)
+    results = cursor.fetchall()
+    for row in results:
+        print("Age:", row[0], "- Res:", row[1])
+groupconcattask1()
 #show()
 con.close()
